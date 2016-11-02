@@ -36,6 +36,10 @@ RUN sed -i "s/httpredir\.debian\.org/ftp.us.debian.org/g" /etc/apt/sources.list 
     && apt-get -y clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN apt update && apt install -y make gcc mercurial \
+    && hg clone https://MerliX@bitbucket.org/geekman/mdns-repeater \
+    && cd mdns-repeater && make && ln -s ~/mdns-repeater/mdns-repeater /bin/
+
 COPY ./run.sh /opt/src/run.sh
 RUN chmod 755 /opt/src/run.sh
 
